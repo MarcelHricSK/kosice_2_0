@@ -192,7 +192,7 @@
 
     document.querySelector('#main_form').addEventListener('submit', function (e) {
       e.preventDefault()
-      rerenderIso($('#lat__input').val(), $('#lng__input').val())
+      loadData($('#lat__input').val(), $('#lng__input').val())
     })
 
     map.on('click', function (e) {
