@@ -17,7 +17,7 @@ class MapController extends Controller
         $data = Http::get("https://api.mapbox.com/isochrone/v1/mapbox/walking/" . $lng . "%2C" . $lat . "?contours_minutes=15&polygons=true&denoise=1&generalize=0&access_token=pk.eyJ1IjoibWFyY2VsaHJpYyIsImEiOiJja29zd2hiZ3kwMDJrMzFwY25xNnV5aTliIn0.FJPCVKhDzagzMV7yfVOe8w")->json();
         $polygon = $data['features'][0]['geometry']['coordinates'][0];
 
-        $points = POI::all();
+        $points = POI::with(['events'])->get();
 
         $visiblePoints = [];
         $events = [];
