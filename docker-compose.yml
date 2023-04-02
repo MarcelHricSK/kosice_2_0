@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    volumes:
+      - ./:/var/www/laravel-app/
+      - vendor:/var/www/laravel-app/vendor/
+      - node_modules:/var/www/laravel-app/node_modules/
+    networks:
+      - default
+    depends_on:
+      - mysql-db
+  webserver:
+    depends_on:
+      - app
+    image: nginx:latest
+    build:
+      context: ./docker/nginx
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./:/var/www/laravel-app/
+      - vendor:/var/www/laravel-app/vendor/
+      - node_modules:/var/www/laravel-app/node_modules/
+      - ./docker/nginx/certs/conf:/etc/letsencrypt
+      - ./docker/nginx/certs/www:/var/www/certbot
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - default
+  mysql-db:
+    image: mysql:8.0.28
+    container_name: mysql-db
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - db-data:/var/lib/mysql/
+    env_file:
+      - .env.docker
+    networks:
+      - default
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./docker/nginx/certs/conf:/etc/letsencrypt
+      - ./docker/nginx/certs/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  vendor:
+    driver: local
+  node_modules:
+    driver: local
+  db-data:
+    driver: local

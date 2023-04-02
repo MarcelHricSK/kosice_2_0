@@ -1,0 +1,268 @@
+@import "helpers";
+@import "components";
+
+/* Variables */
+:root {
+  // Colors
+  --color-primary: #1d3e44;
+  --color-accent: #e9f2f2;
+  --color-accent-dark: #E0EBE1;
+  --color-white: #FAFAFA;
+  --color-white-dark: #E0E0E0;
+  --color-grey-light: #AAAAAA;
+  --color-grey-normal: #808080;
+  --color-grey-dark: #606060;
+  --color-dark: #163838;
+  --color-black: #202020;
+  --color-black-dark: #121212;
+  --color-error: #CC2A2A;
+  --color-success: #2ACC3A;
+  --color-warning: #EC8220;
+  --color-info: #DCEC20;
+  --color-alert-primary: #2059EC;
+  --color-alert-secondary: #4920EC;
+
+  // Fonts
+  --font-family: Inter, Arial, sans-serif;
+
+  // Others
+  --border-radius: 8px;
+}
+
+/* Normalize */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-width: 0;
+  outline: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--color-black);
+}
+
+strong, b {
+  font-weight: 500;
+  color: inherit;
+}
+
+p, a, div, span, li, label, ins, del, em {
+  font-weight: 400;
+  color: inherit;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+}
+
+[data-href] {
+  cursor: pointer;
+}
+
+img, svg {
+  vertical-align: middle;
+}
+
+textarea {
+  min-height: 8rem !important;
+  resize: vertical;
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+  font-size: 16px;
+  font-family: var(--font-family);
+}
+
+body {
+  background: var(--color-accent);
+  overflow-x: hidden;
+  color: var(--color-black);
+
+  &.has-sidemenu {
+    .content {
+      margin-left: 20rem;
+    }
+  }
+
+  &.has-header {
+    .content {
+      margin-top: 5rem;
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+
+.header {
+  position: fixed;
+  display: flex;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 5rem;
+  background: var(--color-white);
+  padding: 0 4rem;
+  z-index: 996;
+
+  &__wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__right {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__buttons {
+    display: flex;
+
+  }
+
+  &__separator {
+    width: 1px;
+    height: 100%;
+    background: var(--color-accent);
+    margin: 0 2rem;
+  }
+}
+
+.header-link {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-primary);
+  padding: 0 2rem;
+  height: 100%;
+  color: white;
+}
+
+.auth {
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &__img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--color-primary);
+    border-radius: var(--border-radius);
+  }
+
+  &__img-initial {
+    color: var(--color-accent-dark);
+    font-weight: 700;
+  }
+
+  &__name {
+    font-weight: 500;
+    font-size: 0.825rem;
+    margin-right: 1rem;
+  }
+
+  &:hover {
+    background: var(--color-accent);
+  }
+}
+
+.content {
+  padding: 4rem 2rem;
+
+  &__wrapper {
+
+  }
+
+  &--split {
+    .content__wrapper {
+      display: grid;
+      column-gap: 2rem;
+      grid-template-columns: 66% 1fr;
+    }
+
+
+  }
+
+  &--fluid {
+    padding: 0;
+  }
+}
+
+//
+
+.bar {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #6AC2C2;
+  padding: 2rem;
+  z-index: 99;
+
+  form {
+    display: flex;
+    width: 100%;
+    gap: 2rem;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: 80px;
+  padding: 16px;
+  width: 20rem;
+  height: 100vh;
+  background-color: var(--color-white);
+  z-index: 98;
+  &.open {
+    display: block;
+  }
+}
+
+.eventcard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--color-accent);
+  margin-top: 10px;
+  align-items: flex-start;
+  padding: 1rem;
+  color: var(--color-primary);
+  border-radius: var(--border-radius);
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 0.5rem;
+  }
+  p {
+    margin-bottom: 0.75rem;
+  }
+}
